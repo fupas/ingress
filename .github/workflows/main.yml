@@ -6,13 +6,14 @@ on:
     branches: [ master ]
 
 env:
+  BUILD_PATH: 'cmd/ingress'
+  BUILD_NAME: ingrsvc
   IMAGE_NAME: ingrsvc
   REGISTRY: fupas-cr
   REGISTRY_HOSTNAME: eu.gcr.io
   GITHUB_SHA: ${{ github.sha }}
-  BUILD_PATH: 'cmd/ingress'
-  BUILD_NAME: ingrsvc
-  PLATFORM: 'GOARCH=amd64 GOOS=linux'
+  GOARCH: amd64
+  GOOS: linux
 
 jobs:
   build:
@@ -32,7 +33,7 @@ jobs:
 
     - name: Build go code
       run: |
-        cd $BUILD_PATH && $PLATFORM go build -o ../../build/$BUILD_NAME main.go
+        cd $BUILD_PATH && go build -o ../../build/$BUILD_NAME main.go
         pwd
         ls -la
         ls -la ../../build
