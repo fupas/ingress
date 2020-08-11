@@ -1,5 +1,6 @@
 FROM registry.access.redhat.com/ubi8-minimal
 
+ENV BUILD_NAME ingrsvc
 ENV CADDYFILE /config/caddy/Caddyfile
 
 EXPOSE 80
@@ -23,9 +24,9 @@ VOLUME /config
 VOLUME /data
 
 # copy the binary
-COPY build/ingrsvc /usr/bin/ingrsvc
+COPY build/$BUILD_NAME /usr/bin/$BUILD_NAME
 # make it executable and test it
-RUN chmod +x /usr/bin/ingrsvc ; \
-	ingrsvc version
+RUN chmod +x /usr/bin/$BUILD_NAME ; \
+	$BUILD_NAME version
 
 CMD run
