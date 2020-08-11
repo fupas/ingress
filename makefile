@@ -1,20 +1,24 @@
-.PHONY = all clean build_cmd build_docker release
+.PHONY = all clean build_svc build_container push_container
 
-PLATFORM_LINUX = GOARCH=amd64 GOOS=linux
-INGRESS_VERSION = 0.0.1
+SVC_NAME = ingrsvc
+
+IMAGE_TAG = 1.0.0
+IMAGE_NAME = ingrsvc
 REGISTRY = fupas-main
 
-all: clean build_cmd build_docker
+PLATFORM_LINUX = GOARCH=amd64 GOOS=linux
+
+all: clean build_svc build_container push_container
 
 clean:
-	rm build/ingress
+	rm build/${SVC_NAME}
 
-build_cmd: cmd/ingress/main.go
-	cd cmd/ingress && ${PLATFORM_LINUX} go build -o ../../build/ingress main.go
+build_svc: cmd/ingress/main.go
+	cd cmd/ingress && ${PLATFORM_LINUX} go build -o ../../build/${SVC_NAME} main.go
 
-build_docker:
-	docker build -t fupas/ingress:${INGRESS_VERSION} .
+build_container:
+	docker build -t fupas/${IMAGE_NAME}:${IMAGE_TAG} .
 
-release:
-	docker tag fupas/ingress:${INGRESS_VERSION} eu.gcr.io/${REGISTRY}/ingress:${INGRESS_VERSION}
-	docker push eu.gcr.io/${REGISTRY}/ingress:${INGRESS_VERSION}
+push_container:
+	docker tag fupas/${IMAGE_NAME}:${IMAGE_TAG} eu.gcr.io/${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}
+	docker push eu.gcr.io/${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}

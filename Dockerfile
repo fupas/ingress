@@ -23,9 +23,9 @@ VOLUME /config
 VOLUME /data
 
 # copy the binary
-COPY build/ingress /usr/bin/ingress
+COPY build/ingrsvc /usr/bin/ingrsvc
 # make it executable and test it
-RUN chmod +x /usr/bin/ingress ; \
-	ingress version
+RUN chmod +x /usr/bin/ingrsvc ; \
+	ingrsvc version
 
 CMD run
