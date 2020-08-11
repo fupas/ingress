@@ -10,9 +10,9 @@ env:
   REGISTRY: fupas-cr
   REGISTRY_HOSTNAME: eu.gcr.io
   GITHUB_SHA: ${{ github.sha }}
-  SERVICE_NAME: ingrsvc
-  SERVICEDIR: "cmd/ingress"
-
+  BUILD_PATH: 'cmd/ingress'
+  BUILD_NAME: ingrsvc
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,11 +27,11 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Get dependencies
-      run: cd ${{ SERVICEDIR }} && go get -v -t -d ./...
+      run: cd ${{ BUILD_PATH }} && go get -v -t -d ./...
 
     - name: Build go code
       run: |
-        cd ${{ SERVICEDIR }} && go build -o ../../build/${{ SERVICE_NAME }} main.go
+        cd ${{ BUILD_PATH }} && go build -o ../../build/${{ BUILD_NAME }} main.go
         pwd
         ls -la
         ls -la build
