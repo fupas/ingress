@@ -10,6 +10,8 @@ env:
   REGISTRY: fupas-cr
   REGISTRY_HOSTNAME: eu.gcr.io
   GITHUB_SHA: ${{ github.sha }}
+  SERVICE_NAME: ingrsvc
+  SERVICE_DIR: "cmd/ingress"
 
 jobs:
   build:
