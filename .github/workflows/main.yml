@@ -7,7 +7,7 @@ on:
 
 env:
   SERVICE_NAME: ingrsvc
-  CONTEXT_DIR: cmd/ingress
+  SERVICE_DIR: cmd/ingress
   IMAGE_NAME: ingrsvc
   REGISTRY: fupas-cr
   REGISTRY_HOSTNAME: eu.gcr.io
@@ -28,11 +28,11 @@ jobs:
 
     - name: Get dependencies
       run: |
-        cd ${{ CONTEXT_DIR }} && go get -v -t -d ./...
+        cd ${{ SERVICE_DIR }} && go get -v -t -d ./...
 
     - name: Build go code
       run: |
-        cd ${{ CONTEXT_DIR }} && go build -o ../../build/${{ SERVICE_NAME }} main.go
+        cd ${{ SERVICE_DIR }} && go build -o ../../build/${{ SERVICE_NAME }} main.go
         pwd
         ls -la
         ls -la build
