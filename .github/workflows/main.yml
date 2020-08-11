@@ -6,11 +6,13 @@ on:
     branches: [ master ]
 
 env:
-  IMAGE_NAME: transport
+  SERVICE_NAME: ingrsvc
+  CONTEXT_DIR: cmd/ingress
+  IMAGE_NAME: ingrsvc
   REGISTRY: fupas-cr
   REGISTRY_HOSTNAME: eu.gcr.io
   GITHUB_SHA: ${{ github.sha }}
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,8 +28,14 @@ jobs:
 
     - name: Get dependencies
       run: |
-        cd cmd/ingress && go get -v -t -d ./...
+        cd ${{ CONTEXT_DIR }} && go get -v -t -d ./...
 
+    - name: Build go code
+      run: |
+        cd ${{ CONTEXT_DIR }} && go build -o ../../build/${{ SERVICE_NAME }} main.go
+        pwd
+        ls -la
+        ls -la build
     # Setup gcloud CLI
 #    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
 #      with:
