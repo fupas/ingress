@@ -11,7 +11,7 @@ env:
   REGISTRY_HOSTNAME: eu.gcr.io
   GITHUB_SHA: ${{ github.sha }}
   SERVICE_NAME: ingrsvc
-  SERVICE_DIR: "cmd/ingress"
+  SERVICEDIR: "cmd/ingress"
 
 jobs:
   build:
@@ -32,7 +32,7 @@ jobs:
 
     - name: Build go code
       run: |
-        cd ${{ SERVICE_DIR }} && go build -o ../../build/${{ SERVICE_NAME }} main.go
+        cd ${{ SERVICEDIR }} && go build -o ../../build/${{ SERVICE_NAME }} main.go
         pwd
         ls -la
         ls -la build
