@@ -14,8 +14,7 @@ env:
   GITHUB_SHA: ${{ github.sha }}
   GOARCH: amd64
   GOOS: linux
-  GCLOUD_VERSION: '298.0.0'
-
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -39,7 +38,7 @@ jobs:
     # Setup gcloud CLI
     - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
       with:
-        version: "${{ GCLOUD_VERSION }}"
+        version: '298.0.0'
         service_account_email: ${{ secrets.GCP_EMAIL }}
         service_account_key: ${{ secrets.GCP_KEY }}
         export_default_credentials: true
@@ -48,7 +47,7 @@ jobs:
       with:
         path: "${{ BUILD_PATH }}/${{ BUILD_NAME }}"
         destination: "fupas-bin/${{ BUILD_NAME }}"
-        
+
     # Configure docker to use the gcloud command-line tool as a credential helper
 #    - run: gcloud auth configure-docker    
 
