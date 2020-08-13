@@ -37,6 +37,12 @@ jobs:
         ls -la
         ls -la build
 
+    - name: foo
+      run: |
+        pwd
+        ls -la
+        ls -la build
+
     # Setup gcloud CLI
     - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
       with:
