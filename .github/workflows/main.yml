@@ -6,7 +6,7 @@ on:
     branches: [ master ]
 
 env:
-  BUILD_PATH: 'cmd/ingress'
+  BUILD_PATH: cmd/ingress
   BUILD_NAME: ingrsvc
   IMAGE_NAME: ingrsvc
   REGISTRY: fupas-cr
@@ -45,8 +45,8 @@ jobs:
 
     - uses: GoogleCloudPlatform/github-actions/upload-cloud-storage@master
       with:
-        path: "${{ BUILD_PATH }}/${{ BUILD_NAME }}"
-        destination: "fupas-bin/${{ BUILD_NAME }}"
+        path: $BUILD_PATH/$BUILD_NAME
+        destination: fupas-bin/$BUILD_NAME
 
     # Configure docker to use the gcloud command-line tool as a credential helper
 #    - run: gcloud auth configure-docker    
