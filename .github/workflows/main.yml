@@ -51,8 +51,8 @@ jobs:
 
     - uses: GoogleCloudPlatform/github-actions/upload-cloud-storage@master
       with:
-        path: build/$BUILD_NAME
-        destination: "fupas-bin/$BUILD_NAME"
+        path: build/${{ BUILD_NAME }}
+        destination: fupas-bin
 
     # Configure docker to use the gcloud command-line tool as a credential helper
 #    - run: gcloud auth configure-docker    
