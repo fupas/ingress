@@ -34,8 +34,6 @@ jobs:
     - name: Build go code
       run: |
         cd $BUILD_PATH && go build -o ../../build/$BUILD_NAME main.go
-        ls -la
-        ls -la build
 
     - name: foo
       run: |
