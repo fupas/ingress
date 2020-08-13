@@ -6,11 +6,6 @@ on:
     branches: [ master ]
 
 env:
-  BUILD_PATH: cmd/ingress
-  BUILD_NAME: ingrsvc
-  IMAGE_NAME: ingrsvc
-  REGISTRY: fupas-cr
-  REGISTRY_HOSTNAME: eu.gcr.io
   GITHUB_SHA: ${{ github.sha }}
   GOARCH: amd64
   GOOS: linux
@@ -29,17 +24,11 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Get dependencies
-      run: cd $BUILD_PATH && go get -v -t -d ./...
+      run: cd cmd/router && go get -v -t -d ./...
 
     - name: Build go code
       run: |
-        cd $BUILD_PATH && go build -o ../../build/$BUILD_NAME main.go
-
-    - name: foo
-      run: |
-        pwd
-        ls -la
-        ls -la build
+        cd cmd/router && go build -o ../../build/router main.go
 
     # Setup gcloud CLI
     - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
@@ -51,21 +40,5 @@ jobs:
 
     - uses: GoogleCloudPlatform/github-actions/upload-cloud-storage@master
       with:
-        path: build/ingrsvc
+        path: build/router
         destination: fupas-bin
-
-    # Configure docker to use the gcloud command-line tool as a credential helper
-#    - run: gcloud auth configure-docker    
-
-#    - name: Build the container
-#      run: |        
-#        docker build -t "$REGISTRY_HOSTNAME"/"$REGISTRY"/"$IMAGE_NAME":"$GITHUB_SHA" \
-#          --build-arg GITHUB_SHA="$GITHUB_SHA" \
-#          --build-arg GITHUB_REF="$GITHUB_REF" .
-
-#    # Push the docker image to Google Container Registry
-#    - name: Publish the container
-#      run: |
-#        docker push $REGISTRY_HOSTNAME/$REGISTRY/$IMAGE_NAME:$GITHUB_SHA
-#        docker tag $REGISTRY_HOSTNAME/$REGISTRY/$IMAGE_NAME:$GITHUB_SHA $REGISTRY_HOSTNAME/$REGISTRY/$IMAGE_NAME:latest
-#        docker push $REGISTRY_HOSTNAME/$REGISTRY/$IMAGE_NAME:latest
