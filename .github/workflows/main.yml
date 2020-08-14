@@ -3,7 +3,7 @@ name: BuildAndPushContainer
 
 on:
   push:
-    branches: [ master ]
+    branches: [ release ]
 
 env:
   GITHUB_SHA: ${{ github.sha }}
@@ -33,7 +33,6 @@ jobs:
     # Setup gcloud CLI
     - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
       with:
-        version: '298.0.0'
         service_account_email: ${{ secrets.GCP_EMAIL }}
         service_account_key: ${{ secrets.GCP_KEY }}
         export_default_credentials: true
