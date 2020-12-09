@@ -1,3 +1,7 @@
-# ingress-container
+# router
 
-A custom Caddy build for the ingress router
+A custom ingress router based on Caddy
+
+The plan is to add FuPas specific plug-ins later on ...
+
+
