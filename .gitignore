@@ -1,5 +1,6 @@
 stuff.md
 build/
+hack/
 
 # Binaries for programs and plugins
 *.exe
